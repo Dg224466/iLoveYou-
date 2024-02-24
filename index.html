@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Animation</title>
+    <title>Love Confession</title>
     <style>
         @keyframes beat {
             0% {
@@ -22,14 +22,25 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #ffc0cb; /* Pink background */
             margin: 0;
+            background-color: #fce4ec;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+        }
+
+        .heart-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
         }
 
         .heart {
-            position: relative;
-            width: 100px;
-            height: 90px;
+            position: absolute;
+            width: 50px;
+            height: 45px;
             background-color: #e91e63;
             transform: rotate(-45deg);
             animation: beat 2s infinite;
@@ -39,20 +50,20 @@
         .heart::after {
             content: '';
             position: absolute;
-            width: 100px;
-            height: 90px;
+            width: 50px;
+            height: 45px;
             background-color: #e91e63;
             border-radius: 50%;
         }
 
         .heart::before {
-            top: -45px;
+            top: -22.5px;
             left: 0;
         }
 
         .heart::after {
             top: 0;
-            left: 45px;
+            left: 22.5px;
         }
 
         .message {
@@ -62,10 +73,88 @@
             margin-top: 20px;
             color: #333;
         }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button.yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button.no {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .no-move {
+            position: absolute;
+            animation: moveNo 2s infinite;
+        }
+
+        @keyframes moveNo {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(20px, -20px);
+            }
+            50% {
+                transform: translate(0, 0);
+            }
+            75% {
+                transform: translate(-20px, 20px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="heart"></div>
-    <div class="message">I Love You</div>
+    <div class="heart-container">
+        <div class="heart top-left"></div>
+        <div class="heart top-right"></div>
+        <div class="heart bottom-left"></div>
+        <div class="heart bottom-right"></div>
+    </div>
+
+    <div class="slide" id="slide1">
+        <div class="message">I know this might be unexpected but...</div>
+        <div class="message">I'm seriously in love with you.</div>
+        <div class="message">You're always the highlight of my day</div>
+        <div class="message">and I want to enjoy your company forever so...</div>
+        <div class="buttons">
+            <div class="button yes" onclick="showNextSlide()">Yes</div>
+            <div class="button no" onclick="moveNo()">No</div>
+        </div>
+    </div>
+
+    <div class="slide" id="slide2">
+        <div class="message">Will you go out with me?</div>
+        <div class="message">Text me your response on Instagram!</div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+
+        function showNextSlide() {
+            document.getElementById(`slide${currentSlide}`).style.display = "none";
+            currentSlide++;
+            document.getElementById(`slide${currentSlide}`).style.display = "block";
+        }
+
+        function moveNo() {
+            document.querySelector(".no").classList.add("no-move");
+        }
+    </script>
 </body>
 </html>
