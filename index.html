@@ -3,10 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Color Example</title>
+    <title>Heart Animation</title>
+    <style>
+        @keyframes beat {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffc0cb; /* Pink background */
+            margin: 0;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            background-color: #e91e63;
+            transform: rotate(-45deg);
+            animation: beat 2s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 90px;
+            background-color: #e91e63;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -45px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 45px;
+        }
+
+        .message {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
 </head>
-<body style="background-color: #FFC0CB;">
-    <h1>This is my content</h1>
-    <p>Some text here.</p>
+<body>
+    <div class="heart"></div>
+    <div class="message">I Love You</div>
 </body>
 </html>
