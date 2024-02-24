@@ -3,95 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Confession</title>
+    <title>Hearts in Corners</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             display: flex;
+            min-height: 100vh;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            margin: 0;
-            background-color: #fce4ec;
-            overflow: hidden;
+            background-color: pink;
         }
 
-        .heart-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        .heart {
+        .heartleft {
             position: absolute;
-            width: 50px;
-            height: 45px;
+            width: 70px;
+            height: 70px;
             background-color: #e91e63;
-            transform: rotate(-45deg);
             animation: beat 2s infinite;
+            transform: rotate(45deg);
+            box-shadow: -10px 10px 90px firebrick;
         }
 
-        .heart::before,
-        .heart::after {
+        .heartleft::before{
             content: '';
             position: absolute;
-            width: 50px;
-            height: 45px;
+            width: 70px;
+            height: 70px;
             background-color: #e91e63;
-            border-radius: 50%;
+            bottom: 50%;
+            border-radius: 50px;
+        }
+        .heartleft::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: #e91e63;
+            right: 50%;
+            border-radius: 50px;
+
+        }
+        .heartright {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: #e91e63;
+            animation: beat 2s infinite;
+            transform: rotate(45deg);
+            box-shadow: -10px 10px 90px firebrick;
         }
 
-        .heart::before {
-            top: -22.5px;
-            left: 0;
+        .heartright::before{
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: #e91e63;
+            bottom: 50%;
+            border-radius: 50px;
+        }
+        .heartright::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: #e91e63;
+            left: 50%;
+            border-radius: 50px;
+
         }
 
-        .heart::after {
-            top: 0;
-            left: 22.5px;
+        .top-left {
+            top: 7%;
+            left: 4%;
+        }
+
+        .top-right {
+            top: 7%;
+            right: 4%;
+        }
+
+        .bottom-left {
+            bottom: 4%;
+            left: 4%;
+        }
+
+        .bottom-right {
+            bottom: 4%;
+            right: 4%;
+        }
+
+        .message-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            animation: fade-in 4s ease-in-out forwards;
         }
 
         .message {
-            text-align: center;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
             font-family: 'Arial', sans-serif;
             font-size: 24px;
-            margin: 20px 0; /* Adjusted margin for better spacing */
-            color: #333;
-        }
-
-        .buttons {
             margin-top: 20px;
-        }
-
-        .button {
-            padding: 10px 20px;
-            margin: 0 10px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: transparent;
-            border: 2px solid #333;
             color: #333;
-            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
-        .button.yes {
-            background-color: #4CAF50;
-            color: white;
-            border-color: #4CAF50;
+        .move-button {
+            position: absolute;
+            top: 80%;
+            left: 60%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #ee0a0a;
+            color: #fff;
+            border: black;
+            cursor: pointer;
+            transition: top 0.5s ease-in-out;
         }
 
-        .button.no {
-            background-color: #f44336;
-            color: white;
-            border-color: #f44336;
-            position: relative;
+        .move-button:hover {
+            background-color: #ee0a0a;
         }
 
-        .button.no:hover {
-            transform: scale(1.1);
+        .click-button {
+            position: absolute;
+            top: 80%;
+            left: 40%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #0aee8b;
+            color: #fff;
+            border: black;
+            cursor: pointer;
         }
 
-        .hidden {
-            display: none;
+        .click-button:hover {
+            background-color: #0aee8b;
+        }
+
+        .moved {
+            top: 20%;
+        }
+
+        .slide-text {
+            position: absolute;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        @keyframes slide-in {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-50%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-20%);
+            }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in-out {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
         }
 
         @keyframes beat {
@@ -105,64 +204,47 @@
                 transform: scale(1);
             }
         }
-
-        @keyframes moveNo {
-            0%, 100% {
-                top: 50px;
-                left: 50px;
-            }
-            25% {
-                top: 50px;
-                left: calc(100vw - 100px);
-            }
-            50% {
-                top: calc(100vh - 100px);
-                left: calc(100vw - 100px);
-            }
-            75% {
-                top: calc(100vh - 100px);
-                left: 50px;
-            }
-        }
     </style>
 </head>
-<body>
-    <div class="heart-container">
-        <div class="heart top-left"></div>
-        <div class="heart top-right"></div>
-        <div class="heart bottom-left"></div>
-        <div class="heart bottom-right"></div>
-    </div>
-
+<div class="message-container">
     <div class="message">I know this might be unexpected but...</div>
     <div class="message">I'm seriously in love with you.</div>
-    <div class="message">You're always the highlight of my day</div>
-    <div class="message">and I want to enjoy your company forever so...</div>
-    
-    <div class="buttons">
-        <div class="button yes" onclick="showNextSlide()">Yes</div>
-        <div class="button no" onclick="moveNo()">No</div>
+    <div class="message">You're always the highlight of my day even when im sad</div>
+    <div class="message">and I want to enjoy your company forever so...
+    <div class="message">Do you feel the same way about me #######?
     </div>
+</div>
 
-    <div class="message hidden" id="slide2">
-        Will you go out with me?
-        <br>
-        <span style="font-size: 14px;">Text me your response on Instagram!</span>
+</div>
+<body>
+    <div class="heartleft top-left"></div>
+    <div class="heartright top-right"></div>
+    <div class="heartleft bottom-left"></div>
+    <div class="heartright bottom-right"></div>
+</body>
+    <button class="move-button" onclick="moveButton()">No</button>
+
+    <button class="click-button" onclick="slideText()">YES!!!</button>
+
+    <div class="slide-text" id="slideText">
+        <p>I LOVE YOU SO MUCH #######!!!!</p>
     </div>
 
     <script>
-        function showNextSlide() {
-            document.getElementById('slide2').classList.remove('hidden');
-        }
+    function moveButton() {
+        const button = document.querySelector('.move-button');
+        button.classList.toggle('moved');
+    }
+    function slideText() {
+            const slideText = document.getElementById('slideText');
+            slideText.style.animation = 'slide-in 1s ease-in-out forwards';
 
-        function moveNo() {
-            const noButton = document.querySelector(".no");
-            noButton.style.animation = "moveNo 2s";
-            noButton.style.pointerEvents = "none"; // Disable button during animation
-            setTimeout(() => {
-                noButton.style.animation = "";
-                noButton.style.pointerEvents = "auto"; // Enable button after animation
-                document.getElementById('slide2').classList.remove('hidden');
-            }, 2000);
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(message => {
+                message.style.opacity = '0';
+            });
+            
         }
-    </
+    </script>
+</body>
+</html>
