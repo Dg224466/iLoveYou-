@@ -54,7 +54,7 @@
             text-align: center;
             font-family: 'Arial', sans-serif;
             font-size: 24px;
-            margin-top: 20px;
+            margin: 20px 0; /* Adjusted margin for better spacing */
             color: #333;
         }
 
@@ -94,21 +94,34 @@
             display: none;
         }
 
-        @keyframes moveNo {
+        @keyframes beat {
             0% {
-                transform: rotate(0deg) translate(0, 0);
-            }
-            25% {
-                transform: rotate(90deg) translate(50px, 0);
+                transform: scale(1);
             }
             50% {
-                transform: rotate(180deg) translate(0, 50px);
-            }
-            75% {
-                transform: rotate(270deg) translate(-50px, 0);
+                transform: scale(1.2);
             }
             100% {
-                transform: rotate(360deg) translate(0, -50px);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes moveNo {
+            0%, 100% {
+                top: 50px;
+                left: 50px;
+            }
+            25% {
+                top: 50px;
+                left: calc(100vw - 100px);
+            }
+            50% {
+                top: calc(100vh - 100px);
+                left: calc(100vw - 100px);
+            }
+            75% {
+                top: calc(100vh - 100px);
+                left: 50px;
             }
         }
     </style>
@@ -145,11 +158,11 @@
         function moveNo() {
             const noButton = document.querySelector(".no");
             noButton.style.animation = "moveNo 2s";
+            noButton.style.pointerEvents = "none"; // Disable button during animation
             setTimeout(() => {
                 noButton.style.animation = "";
+                noButton.style.pointerEvents = "auto"; // Enable button after animation
                 document.getElementById('slide2').classList.remove('hidden');
             }, 2000);
         }
-    </script>
-</body>
-</html>
+    </
